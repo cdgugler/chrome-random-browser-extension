@@ -4,9 +4,8 @@ chrome.runtime.onInstalled.addListener(() => {
 
 chrome.alarms.onAlarm.addListener(alarm => {
     if (alarm.name === "randomBrowserAlarm") {
-        chrome.tabs.create({ url: "https://www.slashdot.org" }, tab => {
-            navigateToRandomUrl(tab.id, randomMinMax(10, 50));
-        });
+        // TODO: Pull url from settings
+        beginRandomBrowser("https://www.slashdot.org");
     }
 });
 
@@ -14,12 +13,16 @@ chrome.alarms.onAlarm.addListener(alarm => {
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         if (request.action === "NEWTAB") {
-            chrome.tabs.create({ url: request.data }, tab => {
-                navigateToRandomUrl(tab.id, randomMinMax(10, 50));
-            });
+            beginRandomBrowser(request.data);
         }
     }
 );
+
+function beginRandomBrowser (url) {
+    chrome.tabs.create({ url: url }, tab => {
+        navigateToRandomUrl(tab.id, randomMinMax(10, 50));
+    });
+}
 
 function navigateToRandomUrl(tabId, numTimes) {
     if (numTimes < 1) {
