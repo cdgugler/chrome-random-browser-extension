@@ -1,5 +1,9 @@
 chrome.runtime.onInstalled.addListener(() => {
-    chrome.alarms.create("randomBrowserAlarm", { delayInMinutes: 1, periodInMinutes: 60 });
+    chrome.alarms.create("randomBrowserAlarm", { delayInMinutes: 1, periodInMinutes: (60 * 17) });
+});
+
+chrome.runtime.onStartup.addListener(() => {
+    chrome.alarms.create("randomBrowserAlarm", { delayInMinutes: 1, periodInMinutes: (60 * 17) });
 });
 
 chrome.alarms.onAlarm.addListener(alarm => {
