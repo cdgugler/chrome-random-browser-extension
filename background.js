@@ -9,7 +9,7 @@ chrome.runtime.onStartup.addListener(() => {
 chrome.alarms.onAlarm.addListener(alarm => {
     if (alarm.name === "randomBrowserAlarm") {
         // TODO: Pull url from settings
-        beginRandomBrowser("https://www.slashdot.org");
+        beginRandomBrowser("http://popurls.com");
     }
 });
 
